@@ -1,0 +1,16 @@
+{
+  "name": "ws-messenger-node",
+  "version": "1.0.0",
+  "description": "Server for WS Messenger",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "author": "v1khrov",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^9.0.1",
+    "ws": "^8.15.0"
+  }
+}
