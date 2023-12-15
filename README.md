@@ -1,1 +1,1 @@
-# WebSockets server on NodeJS for WsMessenger application
+# WebSockets NodeJS-server for 'WS Messenger' application
