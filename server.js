@@ -6,6 +6,7 @@ const port = 8000;
 
 // clients objects
 const clients = {};
+const messages = [];
 
 const wss = new WebSocketServer({host: host, port: port});
 console.log(`server start on ${host}:${port}`);
@@ -15,8 +16,14 @@ wss.on("connection", (ws) => {
 
   console.log(`new client: ${id}`); 
 
-  ws.on('message', (rawMessage) => {
-    console.log(`message: ${rawMessage}`);
+  ws.on('message', (rawMessage) => {    
+    const message  = JSON.parse(rawMessage);
+    messages.push(message);
+
+    for (const id in clients) { 
+      clients[id].send(messages);
+    }
+
   });
 
   ws.on('close', () => {
