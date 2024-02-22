@@ -1,13 +1,15 @@
 import { WebSocketServer } from 'ws';
 import { v4 as uuid } from 'uuid';
-import { writeFile } from 'fs';
+import { writeFile, readFileSync, existsSync } from 'fs';
 
 const host = 'localhost';
 const port = 8000;
+const dumpName = 'dump.json';
 
 // clients objects
 const clients = {};
-const messages = [];
+const dump = existsSync(dumpName) && readFileSync(dumpName);
+const messages = JSON.parse(dump) || [];
 
 const wss = new WebSocketServer({ host: host, port: port });
 console.log(`server start on ${host}:${port}`);
@@ -38,7 +40,7 @@ wss.on("connection", (ws) => {
 
 process.on('SIGINT', () => {
   wss.close();
-  writeFile('dump.json', JSON.stringify(messages), err => {
+  writeFile(dumpName, JSON.stringify(messages), err => {
     if(err) console.err(err);
     process.exit();
   });
