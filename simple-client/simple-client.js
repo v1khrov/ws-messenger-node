@@ -2,8 +2,15 @@ const chatEl = document.getElementById("chat");
 const address = document.getElementById("address").value;
 let ws = new WebSocket(address);
 
-ws.onmessage = (message) => {
-  console.log(message);
+ws.onmessage = (event) => {
+  console.log(event.data);
+  const messages = JSON.parse(event.data);
+  messages.forEach(message => {
+    const messageEl = document.createElement('div');
+    messageEl.appendChild(document.createTextNode(`${message.name}: ${message.message}`));
+    chat.appendChild(messageEl);
+  });
+  
 }
 
 const reconnect = (event) => {
